@@ -293,6 +293,7 @@ def onmessage(update,bot:ObigramClient):
             if token:
                 try:
                     state = f2f.hook_state(token,hook_state)
+                    Print(state)
                     if state:
                         filename = str(url).split('/')[-1]
                         txtname = filename.split('.')[0] + '.txt'
