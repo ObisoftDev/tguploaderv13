@@ -53,9 +53,9 @@ def hook_state(token,hookfunc=None,args=()):
     if token:
         while wait:
             err,state = state(token)
-            if stat.state != 'OK':
-                wait = False
             try:
+                if stat.state != 'OK':
+                    wait = False
                 if stat.data.state == 0 or stat.data.state == 3:
                     wait = False
                 data = stat.data
