@@ -47,7 +47,7 @@ def state(token):
         pass
     return err, None
 
-def hook_state(token,hookfunc=None):
+def hook_state(token,hookfunc=None,args=()):
     wait = True
     stat = None
     if token:
@@ -60,7 +60,7 @@ def hook_state(token,hookfunc=None):
                     wait = False
                 data = stat.data
                 if hookfunc:
-                    hookfunc(data)
+                    hookfunc(data,args)
             except:
                 pass
     return stat
