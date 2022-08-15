@@ -38,9 +38,9 @@ def parse(host='',auth='auth',passw='',urls=[],type=''):
 def state(token):
     err = None
     jsondata = {'token': token}
-    resp = requests.get(HOST + 'state', json=jsondata)
     try:
-        return json.loads(resp.text, object_hook = lambda d : Namespace(**d))
+        resp = requests.get(HOST + 'state', json=jsondata)
+        return None,json.loads(resp.text, object_hook = lambda d : Namespace(**d))
         err = jsondata['state']
     except Exception as ex:
         err = str(ex)
@@ -52,7 +52,7 @@ def hook_state(token,hookfunc=None,args=()):
     stat = None
     if token:
         while wait:
-            stat = state(token)
+            err,state = state(token)
             if stat.state != 'OK':
                 wait = False
             try:
