@@ -52,7 +52,7 @@ def hook_state(token,hookfunc=None,args=()):
     stat = None
     if token:
         while wait:
-            err,state = state(token)
+            err,stat = state(token)
             try:
                 if stat.state != 'OK':
                     wait = False
