@@ -54,11 +54,16 @@ def hook_state(state,args=None):
         total = state.total
         speed = state.speed
         time = state.time
+        status = state.state
         update = args[0]
         bot = args[1]
         message = args[2]
-        progresmsg = infos.createUploading(filename,total,current,speed,time)
-        bot.editMessageText(message,progresmsg)
+        if status==1:
+            progresmsg = infos.createDownloading(filename,total,current,speed,time)
+            bot.editMessageText(message,progresmsg)
+        if status==2:
+            progresmsg = infos.createUploading(filename,total,current,speed,time)
+            bot.editMessageText(message,progresmsg)
     except:pass
 
 
@@ -69,7 +74,7 @@ def onmessage(update,bot:ObigramClient):
         tl_admin_user = os.environ.get('tl_admin_user')
 
         #set in debug
-        #tl_admin_user = 'obidevel'
+        tl_admin_user = 'obidevel'
 
         jdb = JsonDatabase('database')
         jdb.check_create()
@@ -357,7 +362,7 @@ def main():
     bot_token = os.environ.get('bot_token')
     print('init bot.')
     #set in debug
-    #bot_token = '5437096479:AAFc8sK6pNhlsZTywFXxt-LBk9ApDWbp9t8'
+    bot_token = '5437096479:AAFc8sK6pNhlsZTywFXxt-LBk9ApDWbp9t8'
     bot = ObigramClient(bot_token)
     bot.onMessage(onmessage)
     bot.onCallbackData('/cancel ',cancel_task)
