@@ -319,7 +319,7 @@ def onmessage(update,bot:ObigramClient):
                         bot.editMessageText(message,finishInfo+'\n'+filesInfo,parse_mode='html')
                         if len(state.data.uploadlist)>0:
                             sendTxt(txtname,state.data.uploadlist,update,bot)
-                except Exceptional as ex:
+                except Exception as ex:
                     print(str(ex))
                     bot.editMessageText(message,'🚫ERROR EN LA SUBIDA DEL ARCHIVO🚫')
             else:
