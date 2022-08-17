@@ -40,7 +40,7 @@ def state(token):
     jsondata = {'token': token}
     try:
         resp = requests.get(HOST + 'state', json=jsondata)
-        return None,json.loads(resp.text, object_hook = lambda d : Namespace(**d))
+        return None,json.loads(resp.text)
         err = jsondata['state']
     except Exception as ex:
         err = str(ex)
@@ -54,13 +54,15 @@ def hook_state(token,hookfunc=None,args=()):
         while wait:
             err,stat = state(token)
             try:
-                if stat.state != 'OK':
-                    wait = False
-                if stat.data.state == 0 or stat.data.state == 3:
-                    wait = False
-                data = stat.data
-                if hookfunc:
-                    hookfunc(data,args)
+                if 'state' in stat:
+                    if stat.state != 'OK':
+                       wait = False
+                if 'data' in stat:
+                    if stat['data']['state'] == 0 or stat['data']['state'] == 3:
+                       wait = False
+                    data = json.loads(stat['data'], object_hook = lambda d : Namespace(**d))
+                    if hookfunc:
+                       hookfunc(data,args)
             except:
                 pass
     return stat
