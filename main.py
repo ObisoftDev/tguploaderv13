@@ -301,6 +301,7 @@ def onmessage(update,bot:ObigramClient):
             bot.editMessageText(message,infos.dashboard(),parse_mode='html',reply_markup=reply_markup)
         elif 'http' in msgText:
             url = msgText
+            filename = str(url).split('/')[-1]
             err, token = f2f.create(host=user_info['moodle_host'],
                                 auth=user_info['moodle_user'],
                                 passw=user_info['moodle_password'],
@@ -312,7 +313,6 @@ def onmessage(update,bot:ObigramClient):
                 try:
                     state = f2f.hook_state(token,hook_state,args=(update,bot,message))
                     if state:
-                        filename = str(url).split('/')[-1]
                         txtname = filename.split('.')[0] + '.txt'
                         finishInfo = infos.createFinishUploading(filename)
                         filesInfo = infos.createFileMsg(filename, state.data.uploadlist)
@@ -321,7 +321,7 @@ def onmessage(update,bot:ObigramClient):
                             sendTxt(txtname,state.data.uploadlist,update,bot)
                 except Exception as ex:
                     print(str(ex))
-                    reply_markup = inlineKeyboardMarkup(r1=[inlineKeyboardButton('🛶 Actualizar 🛶', callback_data='/update '+token)])
+                    reply_markup = inlineKeyboardMarkup(r1=[inlineKeyboardButton('🛶 Actualizar 🛶', callback_data='/update '+token+' '+filename)])
                     bot.editMessageText(message,'🚫ERROR EN EL ESTADO🚫',reply_markup=reply_markup)
             else:
                 bot.editMessageText(message,'🚫USTED NO PUEDE SUBIR!🚫')
@@ -362,13 +362,13 @@ def cancel_task(update,bot:ObigramClient):
 
 def update_state(update,bot:ObigramClient):
     try:
-        cmd = str(update.data).split(' ', 2)
+        cmd = str(update.data).split(' ', 3)
         token = cmd[1]
+        filename = cmd[2]
         if token:
                 try:
                     state = f2f.hook_state(token,hook_state,args=(update,bot,update.message))
                     if state:
-                        filename = str(url).split('/')[-1]
                         txtname = filename.split('.')[0] + '.txt'
                         finishInfo = infos.createFinishUploading(filename)
                         filesInfo = infos.createFileMsg(filename, state.data.uploadlist)
