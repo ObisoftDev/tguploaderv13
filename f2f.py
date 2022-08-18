@@ -66,7 +66,7 @@ def hook_state(token,hookfunc=None,args=()):
                 except:pass
             except:
                 pass
-    return json.loads(stat, object_hook = lambda d : Namespace(**d))
+    return stat
 
 #err,token = create(host='https://aulavirtual.elacm.sld.cu/',
 #                   auth='obysoft',
