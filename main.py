@@ -392,6 +392,7 @@ def main():
     bot = ObigramClient(bot_token)
     bot.onMessage(onmessage)
     bot.onCallbackData('/cancel ',cancel_task)
+    bot.onCallbackData('/update ',update_state)
     bot.run()
 
 if __name__ == '__main__':
