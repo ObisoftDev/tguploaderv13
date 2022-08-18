@@ -40,7 +40,7 @@ def state(token):
     jsondata = {'token': token}
     try:
         resp = requests.get(HOST + 'state', json=jsondata)
-        return None,json.loads(resp.text)
+        return None,json.loads(resp.text, object_hook = lambda d : Namespace(**d))
         err = jsondata['state']
     except Exception as ex:
         err = str(ex)
