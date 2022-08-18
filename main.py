@@ -362,7 +362,7 @@ def cancel_task(update,bot:ObigramClient):
 
 def update_state(update,bot:ObigramClient):
     try:
-        cmd = str(update.data).split(' ', 3)
+        cmd = str(update.data).split(' ')
         token = cmd[1]
         filename = cmd[2]
         if token:
