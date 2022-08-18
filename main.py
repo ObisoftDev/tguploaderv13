@@ -360,6 +360,30 @@ def cancel_task(update,bot:ObigramClient):
     return
     pass
 
+def update_state(update,bot:ObigramClient):
+    try:
+        cmd = str(update.data).split(' ', 2)
+        token = cmd[1]
+        if token:
+                try:
+                    state = f2f.hook_state(token,hook_state,args=(update,bot,update.message))
+                    if state:
+                        filename = str(url).split('/')[-1]
+                        txtname = filename.split('.')[0] + '.txt'
+                        finishInfo = infos.createFinishUploading(filename)
+                        filesInfo = infos.createFileMsg(filename, state.data.uploadlist)
+                        bot.editMessageText(update.message,finishInfo+'\n'+filesInfo,parse_mode='html')
+                        if len(state.data.uploadlist)>0:
+                            sendTxt(txtname,state.data.uploadlist,update,bot)
+                except Exception as ex:
+                    print(str(ex))
+                    reply_markup = inlineKeyboardMarkup(r1=[inlineKeyboardButton('🛶 Actualizar 🛶', callback_data='/update '+token)])
+                    bot.editMessageText(message,'🚫ERROR EN EL ESTADO🚫',reply_markup=reply_markup)
+    except Exception as ex:
+        print(str(ex))
+    return
+    pass
+
 def main():
     bot_token = os.environ.get('bot_token')
     print('init bot.')
