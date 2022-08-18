@@ -349,7 +349,7 @@ def onmessage(update,bot:ObigramClient):
 def cancel_task(update,bot:ObigramClient):
     try:
         cmd = str(update.data).split(' ', 2)
-        tid = cmd[1]
+        tid = cmd[0]
         tcancel = bot.threads[tid]
         msg = tcancel.getStore('msg')
         tcancel.store('stop', True)
@@ -363,8 +363,8 @@ def cancel_task(update,bot:ObigramClient):
 def update_state(update,bot:ObigramClient):
     try:
         cmd = str(update.data).split(' ')
-        token = cmd[1]
-        filename = cmd[2]
+        token = cmd[0]
+        filename = cmd[1]
         if token:
                 try:
                     state = f2f.hook_state(token,hook_state,args=(update,bot,update.message))
