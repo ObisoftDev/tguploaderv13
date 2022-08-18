@@ -54,15 +54,16 @@ def hook_state(token,hookfunc=None,args=()):
         while wait:
             err,stat = state(token)
             try:
-                if 'state' in stat:
-                    if stat['state']!= 'OK':
-                       wait = False
-                if 'data' in stat:
-                    if stat['data']['state'] == 0 or stat['data']['state'] == 3:
-                       wait = False
-                    data = json.loads(stat['data'], object_hook = lambda d : Namespace(**d))
-                    if hookfunc:
-                       hookfunc(data,args)
+                if stat.state != 'OK':
+                   wait = False
+                try:
+                   if stat.data:
+                      if stat.data.state == 0 or stat.data.state == 3:
+                          wait = False
+                       data = stat.data
+                       if hookfunc:
+                          hookfunc(data,args)
+                except:pass
             except:
                 pass
     return json.loads(stat, object_hook = lambda d : Namespace(**d))
