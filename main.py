@@ -306,7 +306,7 @@ def onmessage(update,bot:ObigramClient):
                                 auth=user_info['moodle_user'],
                                 passw=user_info['moodle_password'],
                                 urls=[url],
-                                repoid=user_info['moodle_repo_id'])
+                                repoid=user_info['moodle_repo_id'],zips=user_info['zips'])
             print(err)
             print(token)
             if token:
