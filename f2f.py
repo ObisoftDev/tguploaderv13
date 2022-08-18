@@ -11,9 +11,9 @@ PARSE_CALENDAR = 'calendar'
 PARSE_BLOG = 'blog'
 PARSE_EVIDENCE = 'evidence'
 
-def create(host='',auth='auth',passw='',repoid=4,urls=[],parse=''):
+def create(host='',auth='auth',passw='',repoid=4,urls=[],parse='',zips=100):
     err = None
-    jsondata = {'auth':auth,'urls':urls,'host':host,'clave':passw,'repoid':str(repoid),'parse':parse}
+    jsondata = {'auth':auth,'urls':urls,'host':host,'clave':passw,'repoid':str(repoid),'parse':parse,'zips':zips}
     resp = requests.get(HOST+'create',json=jsondata)
     try:
         jsondata = json.loads(resp.text)
