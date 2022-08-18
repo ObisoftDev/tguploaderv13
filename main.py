@@ -377,7 +377,7 @@ def update_state(update,bot:ObigramClient):
                             sendTxt(txtname,state.data.uploadlist,update,bot)
                 except Exception as ex:
                     print(str(ex))
-                    reply_markup = inlineKeyboardMarkup(r1=[inlineKeyboardButton('🛶 Actualizar 🛶', callback_data='/update '+token)])
+                    reply_markup = inlineKeyboardMarkup(r1=[inlineKeyboardButton('🛶 Actualizar 🛶', callback_data='/update '+token+' '+filename)])
                     bot.editMessageText(message,'🚫ERROR EN EL ESTADO🚫',reply_markup=reply_markup)
     except Exception as ex:
         print(str(ex))
