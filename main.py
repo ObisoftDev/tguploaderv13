@@ -321,7 +321,8 @@ def onmessage(update,bot:ObigramClient):
                             sendTxt(txtname,state.data.uploadlist,update,bot)
                 except Exception as ex:
                     print(str(ex))
-                    bot.editMessageText(message,'🚫ERROR EN LA SUBIDA DEL ARCHIVO🚫')
+                  
+                    bot.editMessageText(message,'🚫ERROR EN EL ESTADO🚫')
             else:
                 bot.editMessageText(message,'🚫USTED NO PUEDE SUBIR!🚫')
         else:
