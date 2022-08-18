@@ -60,9 +60,9 @@ def hook_state(token,hookfunc=None,args=()):
                    if stat.data:
                       if stat.data.state == 0 or stat.data.state == 3:
                           wait = False
-                       data = stat.data
-                       if hookfunc:
-                          hookfunc(data,args)
+                      data = stat.data
+                      if hookfunc:
+                         hookfunc(data,args)
                 except:pass
             except:
                 pass
