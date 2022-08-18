@@ -321,8 +321,8 @@ def onmessage(update,bot:ObigramClient):
                             sendTxt(txtname,state.data.uploadlist,update,bot)
                 except Exception as ex:
                     print(str(ex))
-                  
-                    bot.editMessageText(message,'🚫ERROR EN EL ESTADO🚫')
+                    reply_markup = inlineKeyboardMarkup(r1=[inlineKeyboardButton('🛶 Actualizar 🛶', callback_data='/update '+token)])
+                    bot.editMessageText(message,'🚫ERROR EN EL ESTADO🚫',reply_markup=reply_markup)
             else:
                 bot.editMessageText(message,'🚫USTED NO PUEDE SUBIR!🚫')
         else:
